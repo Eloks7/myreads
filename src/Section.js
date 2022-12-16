@@ -11,7 +11,19 @@ class Section extends Component {
     }
 
     bookshelfing = () => {
-        
+        const { books } = this.props;
+        if (books) {
+            const stillReading = books.filter(book => book.shelf === "currentlyReading");
+            const willRead = books.filter(book => book.shelf === "wantToRead");
+            const alreadyRead = books.filter(book => book.shelf === "read");
+
+            this.setState(() => ({
+                currentlyReading: stillReading,
+                wantToRead: willRead,
+                read: alreadyRead
+            }))
+
+        }
     }
 
     render() {
