@@ -8,6 +8,9 @@ import Section from './Section';
 class BooksApp extends Component {
   state = {
     books: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: []
   }
 
   componentDidMount() {

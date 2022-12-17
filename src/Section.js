@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BookCard from './BookCard';
+import * as BooksAPI from "./BooksAPI";
 
 
 class Section extends Component {
@@ -10,11 +11,11 @@ class Section extends Component {
     }
 
     bookShelfing = () => {
-        const { books } = this.props;
-        if (books) {
-            const stillReading = books.filter(book => book.shelf === "currentlyReading");
-            const willRead = books.filter(book => book.shelf === "wantToRead");
-            const alreadyRead = books.filter(book => book.shelf === "read");
+        const { allBooks } = this.props;
+        if (allBooks) {
+            const stillReading = allBooks.filter(book => book.shelf === "currentlyReading");
+            const willRead = allBooks.filter(book => book.shelf === "wantToRead");
+            const alreadyRead = allBooks.filter(book => book.shelf === "read");
 
             this.setState(() => ({
                 currentlyReading: stillReading,
@@ -23,6 +24,12 @@ class Section extends Component {
             }))
 
         }
+    }
+
+    handleShelfChange = (bookId, value) => {
+        BooksAPI.update(bookId, value);
+        this.props.refreshShelf();
+        this.bookShelfing();
     }
 
     render() {
