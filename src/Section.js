@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import BookCard from './BookCard';
 
 
-
 class Section extends Component {
     state = {
         currentlyReading: [],
@@ -10,7 +9,7 @@ class Section extends Component {
         read: []
     }
 
-    bookshelfing = () => {
+    bookShelfing = () => {
         const { books } = this.props;
         if (books) {
             const stillReading = books.filter(book => book.shelf === "currentlyReading");

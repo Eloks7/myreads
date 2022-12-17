@@ -2,23 +2,40 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import { Route } from 'react-router-dom';
-import SearchMovies from './SearchMovies';
-import Section from './Section'
+import SearchBooks from './SearchBooks';
+import Section from './Section';
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
-    movies: [],
+    books: [],
   }
+
   componentDidMount() {
     BooksAPI.getAll()
-      .then((movies) => {
+      .then((books) => {
         this.setState(() => ({
-          movies
+          books
         }))
       })
   }
 
+  shelfBooks = (books) => {
+    const stillReading = books.filter(book => book.shelf === "currentlyReading");
+    const willRead = books.filter(book => book.shelf === "wantToRead");
+    const alreadyRead = books.filter(book => book.shelf === "read");
+
+    this.setState(() => ({
+        currentlyReading: stillReading,
+        wantToRead: willRead,
+        read: alreadyRead
+    }))
+  }
+
   render() {
+
+    if (this.state.books){
+      this.shelfBooks(this.state.books);
+    }
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -26,17 +43,19 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <Section allMovies={this.state.movies}/>
-            <Section allMovies={this.state.movies}/>
-            <Section allMovies={this.state.movies}/>
+            <Section allBooks={this.state.books}/>
+            {/* <Section allMovies={this.state.books}/>
+            <Section allMovies={this.state.books}/> */}
           </div>
         )} />
 
-        <Route path='/search' component={SearchMovies} />
+        <Route path='/search' render={() => (
+          <SearchBooks allBooks={this.state.books}/>
+        )} />
           
       </div>
     )
   }
 }
 
-export default BooksApp
+export default BooksApp;
