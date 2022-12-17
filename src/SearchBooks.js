@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
-class SearchMovies extends Component {
+class SearchBooks extends Component {
     render() {
-        return()
+        return(
+            <div>
+                <Link
+                    className='close-search'
+                    to='/'>
+                        Close
+                </Link>
+            </div>
+        )
     }
 }
 
 
-export default SearchMovies;
+export default SearchBooks;
