@@ -30,12 +30,11 @@ class SearchBooks extends Component {
 
     handleShelfChange = (bookId, value) => {
         BooksAPI.update(bookId, value);
-        this.props.refreshShelf();
     }
 
     render() {
         const { query, shownBooks } = this.state;
-        const { books } = this.props;
+        // const { books } = this.props;
 
         return(
             <div>
@@ -56,7 +55,7 @@ class SearchBooks extends Component {
                 <div className='search-books-results'>
                     <ol className='books-grid'>
                         {shownBooks.map((book) => (
-                            <li key={books.id}>
+                            <li key={book.id}>
                                 <BookCard particularBook={book}/>
                             </li>
                         ))}
