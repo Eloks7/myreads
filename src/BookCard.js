@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 
 class BookCard extends Component {
 
-    handleBookshelfChange = () => {
-        // work on a function to handle bookshelf change
-        
+    handleBookshelfChange = (bookId, value) => {
+        // work on a function to handle bookshelf
+        this.props.handleShelfChange(bookId, value)
     }
 
     render() {
@@ -17,7 +17,7 @@ class BookCard extends Component {
                     <div className="book-cover" 
                     style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
                     <div className="book-shelf-changer">
-                        <select onChange={(e) => (this.handleBookshelfChange(e.target.value))}>
+                        <select onChange={(e) => (this.handleBookshelfChange(book.id, e.target.value))}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
